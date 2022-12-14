@@ -2,12 +2,12 @@ import random
 import hashlib
 import csv
 import uuid
-
 import argparse
 
-################################################
-
+# CLI arguments
 parser = argparse.ArgumentParser(description='A cluster/record generator.')
+
+parser.add_argument("-t", "--output_type", help="Sets the output type, either csv or json", type=str)
 parser.add_argument("-c", "--number_ids", help="Sets the number of IDs default is 500", type=int)
 parser.add_argument("-p", "--number_partners", help="How many partner match files to creat, default is 0", type=int)
 parser.add_argument("-m", "--match_percentage", help="Set maximum match percentage, default is 20", type=int)
@@ -15,6 +15,13 @@ parser.add_argument("-cid_ppid", "--custom_id", help="Set which custom ID to use
 
 
 args = parser.parse_args()
+
+filetypes = ["csv","json"]
+if args.output_type in filetypes:
+  outputType = args.output_type
+else:
+  outputType = "csv"
+
 
 if args.number_ids is None:
   numID = range(500)
@@ -36,8 +43,7 @@ if args.custom_id is None:
 else:
   PPID = args.custom_id
 
-##################################################
-
+# Make the identity clusters/records.
 identity_clusterss = []
 
 colours = ["red", "green", "blue", "yellow", "orange", "purple", "pink", "brown", "black", "white"]
@@ -59,48 +65,57 @@ for i in numID:
   gender = random.choice(genders)
   
   identity_clusters = {
-      "id_e": hashed_email, 
+      # "id_e": hashed_email, 
       "id_c"+str(PPID): id_c, 
-      "id_a": idfa,
-      "id_g": gaid,
-      "trait_colour": colour,
-      "trait_car": car,
-      "trait_age": age,
-      "trait_gender": gender
+      # "id_a": idfa,
+      # "id_g": gaid,
+      # "trait_colour": colour,
+      # "trait_car": car,
+      # "trait_age": age,
+      # "trait_gender": gender
   }
 
   identity_clusterss.append(identity_clusters)
 
-with open('clusters.csv', 'w') as csvfile:
-    fieldnames = identity_clusterss[0].keys()
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
+# If filetype is CSV, output a CSV & the random matches.
+if outputType == "csv":
+  with open('clusters.csv', 'w') as csvfile:
+      fieldnames = identity_clusterss[0].keys()
+      writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+      writer.writeheader()
 
-    for cluster in identity_clusterss:
-        writer.writerow(cluster)
-    csvfile.close
+      for cluster in identity_clusterss:
+          writer.writerow(cluster)
+      csvfile.close
 
-if numberPartners != 0:
-  for i in numberPartners:
-    with open('clusters.csv', 'r') as input_file:
-      input_file.seek(0)
-      csv_reader = csv.reader(input_file)
+  if numberPartners != 0:
+    for i in numberPartners:
+      with open('clusters.csv', 'r') as input_file:
+        input_file.seek(0)
+        csv_reader = csv.reader(input_file)
 
-      num_rows = sum(1 for row in csv_reader)
+        num_rows = sum(1 for row in csv_reader)
 
-      randMatchPerc = random.randint(6, matchPerc)/100
-      num_rows_to_take = int(num_rows * randMatchPerc)
+        randMatchPerc = random.randint(6, matchPerc)/100
+        num_rows_to_take = int(num_rows * randMatchPerc)
 
-      random_rows = random.sample(range(num_rows), num_rows_to_take)
+        random_rows = random.sample(range(num_rows), num_rows_to_take)
 
-      input_file.seek(0)
-      csv_reader = csv.reader(input_file)
+        input_file.seek(0)
+        csv_reader = csv.reader(input_file)
 
-      with open(str(int(randMatchPerc*100)) + "% match rate." +".csv", 'w') as output_file:
-        fieldnames = identity_clusterss[0].keys()
-        csv_writer = csv.writer(output_file)
-        csv_writer.writerow(fieldnames)
-        for i, row in enumerate(csv_reader):
-          if i in random_rows:
-            csv_writer.writerow(row)
-      output_file.close
+        with open(str(int(randMatchPerc*100)) + "% match rate." +".csv", 'w') as output_file:
+          fieldnames = identity_clusterss[0].keys()
+          csv_writer = csv.writer(output_file)
+          csv_writer.writerow(fieldnames)
+          for i, row in enumerate(csv_reader):
+            if i in random_rows:
+              csv_writer.writerow(row)
+        output_file.close
+  pass
+
+# If filetype is JSON, output a JSON & the random matches.
+if outputType == "json":
+  print("Test....")
+  # Do something JSON
+  pass
