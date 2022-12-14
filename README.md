@@ -10,7 +10,52 @@ This will create
 - 1 parent file with 50k records.
 - 2 files with varying %s to be used in different match operation tests. Both with a different percentage match rate vs the parent file.
 
-*Things might be broken please don't use without testing..*   
+To change which types of IDs/Traits we generate you can modify the file and just comment out what you don't want.
+
+For exampmple for CSVs
+``` python
+      identity_clusters = {
+        "id_e": hashed_email, 
+        "id_c"+str(custumID): id_c, 
+        "id_a": idfa,
+        "id_g": gaid,
+        "trait_colour": colour,
+        # "trait_car": car,
+        # "trait_age": age,
+        # "trait_gender": gender
+      }
+```
+
+And for JSON
+``` python
+      j_identity_clusters = {
+        "id": "e:"+hashed_email,
+        "neighbors": [
+          {"id": "c:"+str(custumID)+id_c}, 
+          {"id": "a:"+idfa},
+          {"id": "g:"+idfa},
+        ],
+        # "traits":[
+        #   {
+        #     "key": "colour",
+        #     "value": colour,
+        #   },
+        #   {
+        #     "key": "car",
+        #     "value": car,
+        #   },
+        #   {
+        #     "key": "age",
+        #     "value": age,
+        #   },
+        #   {
+        #     "key": "gender",
+        #     "value": gender,
+        #   }
+        # ]
+      }
+```
+
    
 ----------
 ## Arguments
