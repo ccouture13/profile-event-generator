@@ -2,6 +2,17 @@
 
 Just made this so I can generate CSV and JSON files quickly to use in testing/matches. There are multiple arguments you can pass to generate different file tyles and make partner match files with varying percentages.
 
+## Example:
+```
+python3 cluster_gen.py -t json -c 50000 -p 2 -m 34
+```
+This will create 
+- 1 parent file with 50k records.
+- 2 files with varying %s to be used in different match operation tests. Both with a different percentage match rate vs the parent file.
+
+*Things might be broken please don't use without testing..*   
+   
+----------
 ## Arguments
 ### Output File Type (JSON or CSV)
 Relatively self explanatory, choose which file type you want to generate.
@@ -27,7 +38,7 @@ Lowest can be 10 and the generator will choose a random percent between 10 and y
   -m MATCH_PERCENTAGE, --match_percentage MATCH_PERCENTAGE
                         Set maximum match percentage, default is 20
 ```
-### CID selector.
+## CID selector.
 Select which CID to generate random 8 character PPIDs for, default is c1.
 ```
   -cid CUSTOM_ID, --custom_id CUSTOM_ID
