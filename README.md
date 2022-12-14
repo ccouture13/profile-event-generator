@@ -1,4 +1,4 @@
-## A simple (and possibly broken) cluster generator.
+## A simple (and possibly broken) record generator.
 
 Just made this so I can generate CSV and JSON files quickly to use in testing/matches. There are multiple arguments you can pass to generate different file tyles and make partner match files with varying percentages.
 
