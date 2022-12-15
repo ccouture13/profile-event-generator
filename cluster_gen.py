@@ -10,8 +10,8 @@ import os
 # CLI arguments
 parser = argparse.ArgumentParser(description='A cluster/record generator.')
 
-parser.add_argument("-id_types", default= "email", choices= ["email", "idfa", "gaid"], help="Select the ID types to generate, can be email, cid, idfa, gaid, default is all", type=str, nargs='*')
-parser.add_argument("-file_type", default="csv", choices= ["csv", "json"], help="Sets the output type, either csv or json", type=str)
+parser.add_argument("-id_types", default= "email", choices= ["email", "idfa", "gaid"], help="Select the ID types to generate, can be email, cid, idfa, gaid, default is email only.", type=str, nargs='*')
+parser.add_argument("-file_type", default="csv", choices= ["csv", "json"], help="Sets the output type, either csv or json, default is CSV.", type=str)
 parser.add_argument("-count", default= 50, help="Sets the number of IDs default is 50", type=int)
 parser.add_argument("-partners", default= 0, help="How many partner match files to create, default is 0", type=int)
 parser.add_argument("-add_cid", default=5, choices=[1,2,3,4,5,6,7,8,9], help="Add CID and choose which CID, default = 5", type=int)
@@ -27,7 +27,7 @@ id_types = args.id_types
 outputType = args.file_type
 numID = range(args.count)
 numberPartners = range(args.partners)
-custumID = args.add_cid
+customID = args.add_cid
 
 # Make the identity clusters/records.
 def createCluster(filetyp):
@@ -60,7 +60,7 @@ def createCluster(filetyp):
           identity_clusters.update({"id_g": gaid,})
         }
         if args.add_cid: {
-          identity_clusters.update({"id_c"+str(custumID): id_c,})
+          identity_clusters.update({"id_c"+str(customID): id_c,})
         }
         if add_traits == True:
           identity_clusters.update({
@@ -76,7 +76,7 @@ def createCluster(filetyp):
       email_bytes = random.getrandbits(128).to_bytes(16, byteorder="big")
       email = "e:"+hashlib.sha3_256(email_bytes).hexdigest()
 
-      id_c = "c"+str(custumID)+":"+''.join(random.choices('0123456789abcdef', k=32))
+      id_c = "c"+str(customID)+":"+''.join(random.choices('0123456789abcdef', k=32))
       idfa = "a:"+ str(uuid.uuid4()).upper().replace('-', '')
       gaid = "g:"+str(uuid.uuid4()).upper()
       colour = random.choice(colours)
