@@ -1,21 +1,17 @@
-## A simple *(and possibly broken)* record generator.
+## A simple(ish) record generator.
 
 Just made this so I can generate CSV and JSON files quickly to use in testing/matches. There are multiple arguments you can pass to generate different file tyles and make partner match files with varying percentages.
 
-## Example:
+#### Example:
 ```
 python3 cluster_gen.py -file_type json -count 50000 -partners 2
 ```
 This will create 
 - 1 parent file with 50k records.
 - 2 files with varying %s to be used in different match operation tests. Both with a different percentage match rate vs the parent file.
-
-To change which types of IDs/Traits we generate you can modify the file and just comment out what you don't want.
-
-
-
    
-----------
+   
+   
 ## Arguments
 ### -file_type (required)
 Relatively self explanatory, choose which file type you want to generate.
