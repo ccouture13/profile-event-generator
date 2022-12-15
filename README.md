@@ -30,7 +30,7 @@ And for JSON
 ``` python
       j_identity_clusters = {
         "id": "e:"+hashed_email,
-        "neighbors": [
+        "neighbours": [
           {"id": "c:"+str(custumID)+id_c}, 
           {"id": "a:"+idfa},
           {"id": "g:"+idfa},
