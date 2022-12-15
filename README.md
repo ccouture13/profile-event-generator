@@ -4,7 +4,7 @@ Just made this so I can generate CSV and JSON files quickly to use in testing/ma
 
 ## Example:
 ```
-python3 cluster_gen.py -t json -c 50000 -p 2 -m 34
+python3 cluster_gen.py -file_type json -count 50000 -partners 2
 ```
 This will create 
 - 1 parent file with 50k records.
@@ -12,80 +12,41 @@ This will create
 
 To change which types of IDs/Traits we generate you can modify the file and just comment out what you don't want.
 
-For exampmple for CSVs
-``` python
-      identity_clusters = {
-        "id_e": hashed_email, 
-        "id_c"+str(custumID): id_c, 
-        "id_a": idfa,
-        "id_g": gaid,
-        "trait_colour": colour,
-        # "trait_car": car,
-        # "trait_age": age,
-        # "trait_gender": gender
-      }
-```
 
-And for JSON
-``` python
-      j_identity_clusters = {
-        "id": "e:"+hashed_email,
-        "neighbours": [
-          {"id": "c:"+str(custumID)+id_c}, 
-          {"id": "a:"+idfa},
-          {"id": "g:"+idfa},
-        ],
-        # "traits":[
-        #   {
-        #     "key": "colour",
-        #     "value": colour,
-        #   },
-        #   {
-        #     "key": "car",
-        #     "value": car,
-        #   },
-        #   {
-        #     "key": "age",
-        #     "value": age,
-        #   },
-        #   {
-        #     "key": "gender",
-        #     "value": gender,
-        #   }
-        # ]
-      }
-```
 
    
 ----------
 ## Arguments
-### Output File Type (JSON or CSV)
+### -file_type (required)
 Relatively self explanatory, choose which file type you want to generate.
 ``` 
-  -t OUTPUT_TYPE, --output_type OUTPUT_TYPE
-                        Sets the output type, either csv or json
+  -file_type {csv,json}
+                        Sets the output type, either csv or json.
 ```
-### Number of IDs to generate for the master output file.
+### -id_types (required)
+Select the ID types to generate, can be email, cid, idfa, gaid, default is email only.
+``` 
+  -id_types [{email,idfa,gaid} ...]
+                        Select the ID types to generate, can be email, cid, idfa, gaid.
+```
+### -count
 For CSV it will generate rows with a header, for JSON it will generate individual lines.
 ```
-  -c NUMBER_IDS, --number_ids NUMBER_IDS
-                        Sets the number of IDs default is 50
+  -count COUNT          Sets the number of IDs.
 ```
-### Create match output files.
+### -partners
 Creates match file(s) (the amount depending on the parameter) based on the original file for use in matches.
 ```
-  -p NUMBER_PARTNERS, --number_partners NUMBER_PARTNERS
-                        How many partner match files to create, default is 0
+  -partners PARTNERS    How many partner match files to create, default is 0
 ```
-### Set the maximum match percentage. 
-Lowest can be 10 and the generator will choose a random percent between 10 and your maximum. Default is 20%
+### -add_cid 
+Creates an ID type which is a custom ID, default is C5.
 ```
-  -m MATCH_PERCENTAGE, --match_percentage MATCH_PERCENTAGE
-                        Set maximum match percentage, default is 20
+  -add_cid {1,2,3,4,5,6,7,8,9}
+                        Add CID and choose which CID, default = 5
 ```
-## CID selector.
-Select which CID to generate random 8 character PPIDs for, default is c1.
+## -add_traits
+Use this commmand to generate random age, gender and colour for each record, default is off.
 ```
-  -cid CUSTOM_ID, --custom_id CUSTOM_ID
-                        Set which custom ID to use as custumID between 0 & 9, default is c1
+  -add_traits           Add traits or not to the output file. Default is true
 ```
