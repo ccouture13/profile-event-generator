@@ -10,11 +10,14 @@ import os
 # CLI arguments
 parser = argparse.ArgumentParser(description='A cluster/record generator.')
 
-parser.add_argument("-id_types", required=True, choices= ["email", "idfa", "gaid"], help="Select the ID types to generate, can be email, cid, idfa, gaid.", type=str, nargs='*')
+cidt = ["c0", "c1","c2","c3","c4","c5","c6","c7","c8","c9"]
+idt = ["email", "idfa", "gaid"] + cidt
+
+parser.add_argument("-id_types", required=True, choices= idt, help="Select the ID types to generate, can be email, cid, idfa, gaid.", type=str, nargs='*')
 parser.add_argument("-file_type", required=True, choices= ["csv", "json"], help="Sets the output type, either csv or json.", type=str)
 parser.add_argument("-count", required=True, help="Sets the number of IDs.", type=int)
 parser.add_argument("-partners", default= 0, help="How many partner match files to create, default is 0", type=int)
-parser.add_argument("-add_cid", choices=[1,2,3,4,5,6,7,8,9], help="Add CID and choose which CID", type=int)
+parser.add_argument("-ppid_count", default= 36, help="Choose the PPID 'character length", type=int)
 parser.add_argument("-add_traits", help="Add traits or not to the output file. ", action=argparse.BooleanOptionalAction)
 
 args = parser.parse_args()
@@ -27,117 +30,89 @@ id_types = args.id_types
 outputType = args.file_type
 numID = range(args.count)
 numberPartners = range(args.partners)
+ppid_count = 32 if args.ppid_count is None else args.ppid_count
 
-if args.add_cid is None:
-  makeCID = False
-else:
-  makeCID = True
-  customID = args.add_cid
+colours = ["red", "green", "blue", "yellow", "orange", "purple", "pink", "brown", "black", "white"]
+car_manufacturers = ["Ford", "Toyota", "Honda", "GM", "Tesla", "VW", "Mercedes", "BMW", "Audi", "Fiat"]
+genders = ["male", "female"]
 
 # Make the identity clusters/records.
-def createCluster(filetyp):
-  colours = ["red", "green", "blue", "yellow", "orange", "purple", "pink", "brown", "black", "white"]
-  car_manufacturers = ["Ford", "Toyota", "Honda", "GM", "Tesla", "VW", "Mercedes", "BMW", "Audi", "Fiat"]
-  genders = ["male", "female"]
-
+def createCSVCluster():
   for i in numID:
-    if outputType == "csv":
-      email_bytes = random.getrandbits(128).to_bytes(16, byteorder="big")
-      hashed_email = hashlib.sha3_256(email_bytes).hexdigest()
+    email_bytes = random.getrandbits(128).to_bytes(16, byteorder="big")
+    csv_email = {"id_e": hashlib.sha3_256(email_bytes).hexdigest(),}
+    csv_idfa = {"id_a": str(uuid.uuid4()).upper().replace('-', ''),}
+    csv_gaid = {"id_g": str(uuid.uuid4()).upper(),}
+    csv_id_c = ''.join(random.choices('0123456789abcdef', k=ppid_count))
 
-      id_c = ''.join(random.choices('0123456789abcdef', k=32))
-      idfa = str(uuid.uuid4()).upper().replace('-', '')
-      gaid = str(uuid.uuid4()).upper()
-      colour = random.choice(colours)
-      car = random.choice(car_manufacturers)
-      age = str(random.randint(18, 45))
-      gender = random.choice(genders)
-      
-      identity_clusters = {}
-      for i in id_types: 
-        if "email" in id_types: {
-          identity_clusters.update({"id_e": hashed_email,})
-        }
-        if "idfa" in id_types: {
-          identity_clusters.update({"id_a": idfa,})
-        }
-        if "gaid" in id_types: {
-          identity_clusters.update({"id_g": gaid,})
-        }
-        if makeCID != False: {
-          identity_clusters.update({"id_c"+str(customID): id_c,})
-        }
-        if add_traits == True:
-          identity_clusters.update({
-            "trait_colour": colour,
-            "trait_car": car,
-            "trait_age": age,
-            "trait_gender": gender
-          })
-      
-      id_clusters.append(identity_clusters)
+    identity_clusters = {}
+    for i in id_types:
+      if i not in cidt:
+        identity_clusters |= locals()[f"csv_{i}"]
+      if i in cidt:
+        identity_clusters[f"id_{i}"] = csv_id_c
 
-    if outputType == "json":
-      email_bytes = random.getrandbits(128).to_bytes(16, byteorder="big")
-      email = "e:"+hashlib.sha3_256(email_bytes).hexdigest()
-
-      id_c = ''.join(random.choices('0123456789abcdef', k=32))
-      idfa = "a:"+ str(uuid.uuid4()).upper().replace('-', '')
-      gaid = "g:"+str(uuid.uuid4()).upper()
-      colour = random.choice(colours)
-      car = random.choice(car_manufacturers)
-      age = str(random.randint(18, 45))
-      gender = random.choice(genders)
-
-      j_identity_clusters = {
-        "id": "",
-        "neighbours": [],
-        "traits": [],
-      }
-
-      for j in id_types[0]: 
-        j_identity_clusters.update({
-          "id" : locals()[id_types[0]],
+    if add_traits == True:
+      identity_clusters.update({
+        "trait_colour": random.choice(colours),
+        "trait_car": random.choice(car_manufacturers),
+        "trait_age": str(random.randint(18, 45)),
+        "trait_gender": random.choice(genders)
       })
-      for k in id_types[1:]: 
+
+    id_clusters.append(identity_clusters)
+
+def createJSONCluster():
+  for i in numID:
+    email_bytes = random.getrandbits(128).to_bytes(16, byteorder="big")
+    email = "e:"+hashlib.sha3_256(email_bytes).hexdigest()
+
+    id_c = ''.join(random.choices('0123456789abcdef', k=ppid_count))
+    idfa = "a:"+ str(uuid.uuid4()).upper().replace('-', '')
+    gaid = "g:"+str(uuid.uuid4()).upper()
+    colour = random.choice(colours)
+    car = random.choice(car_manufacturers)
+    age = str(random.randint(18, 45))
+    gender = random.choice(genders)
+
+    j_identity_clusters = {
+      "id": "",
+      "neighbours": [],
+      "traits": [],
+    }
+
+    if id_types[0] not in cidt: {
+      j_identity_clusters.update({
+        "id" : locals()[id_types[0]],
+      },)
+    }
+    else: {
+      j_identity_clusters.update({
+        "id" : id_types[0]+":"+id_c,
+      },)
+    }
+    for k in id_types[1:]: 
+      if k not in cidt:
         j_identity_clusters["neighbours"].append(
           {
             "id" : locals()[k],
           },
-      )
-      if makeCID != False: {
-        j_identity_clusters["neighbours"].append(
+        )
+      if k in cidt:
+          j_identity_clusters["neighbours"].append(
           {
-            "id" : "c"+str(customID)+":"+ id_c,
+            "id" : k+":"+ id_c,
           },
         )
-      } 
-      if add_traits == True:
-        j_identity_clusters["traits"].append(
-          {
-            "key": "colour",
-            "value": colour,
-          },)
-        j_identity_clusters["traits"].append(
-          {
-            "key": "car",
-            "value": car,
-          },)
-        j_identity_clusters["traits"].append(
-          {
-            "key": "age",
-            "value": age,
-          },)
-        j_identity_clusters["traits"].append(
-          {
-            "key": "gender",
-            "value": gender,
-          })
-      id_clusters.append(j_identity_clusters)
+    traits = [{"key": "colour", "value": colour}, {"key": "car", "value": car}, {"key": "age", "value": age}, {"key": "gender", "value": gender}]
+    if add_traits:
+        j_identity_clusters["traits"].append(traits)
+
+    id_clusters.append(j_identity_clusters)
 
 # If filetype is CSV, output a CSV & the random matches.
 if outputType == "csv":
-  createCluster(args.file_type)
+  createCSVCluster()
   with open("clusters.csv", 'w') as csvfile:
       fieldnames = id_clusters[0].keys()
       writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -153,7 +128,7 @@ if outputType == "csv":
         input_file.seek(0)
         csv_reader = csv.reader(input_file)
 
-        num_rows = sum(1 for row in csv_reader)
+        num_rows = sum(1 for _ in csv_reader)
 
         randMatchPerc = random.randint(23, 43)/100
         num_rows_to_take = int(num_rows * randMatchPerc)
@@ -163,7 +138,7 @@ if outputType == "csv":
         input_file.seek(0)
         csv_reader = csv.reader(input_file)
 
-        with open(str(int(randMatchPerc*100)) + "% match rate" +".csv", 'w') as output_file:
+        with open(f"{int(randMatchPerc * 100)}% match rate.csv", 'w') as output_file:
           fieldnames = id_clusters[0].keys()
           csv_writer = csv.writer(output_file)
           csv_writer.writerow(fieldnames)
@@ -171,12 +146,11 @@ if outputType == "csv":
             if i in random_rows:
               csv_writer.writerow(row)
         output_file.close
-pass
 
 
 # If filetype is JSON, output a JSON & the random matches.
 if outputType == "json":
-  createCluster(args.file_type)
+  createJSONCluster()
   with open("clusters.json", "w") as jsonfile:
     for item in id_clusters:
         jsonfile.write(json.dumps(item))
@@ -186,9 +160,7 @@ if outputType == "json":
     linestowrite = []
     for i in numberPartners:
       with open("clusters.json", "r") as jsonInput:
-        for lines in jsonInput:
-          linestowrite.append(json.loads(lines))
-          
+        linestowrite.extend(json.loads(lines) for lines in jsonInput)
         num_rows = len(linestowrite)
 
         randMatchPerc = random.randint(23, 43)/100
@@ -196,10 +168,9 @@ if outputType == "json":
 
         random_rows = random.sample(range(num_rows), num_rows_to_take)
 
-        with open(str(int(randMatchPerc*100)) + "% match rate" +".json", 'w') as output_file2:
+        with open(f"{int(randMatchPerc * 100)}% match rate.json", 'w') as output_file2:
           for i, row in enumerate(linestowrite):
             if i in random_rows:
               output_file2.write(json.dumps(row))
               output_file2.write('\n')
         output_file2.close
-pass
