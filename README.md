@@ -42,7 +42,7 @@ This enables you to generate PPIDs for testing GAM360 and others.
   -ppid_count PPID_COUNT
                         Choose the PPID 'character length
 ```
-## -add_traits
+### -add_traits
 Use this commmand to generate random age, gender and colour for each record, default is off.
 ```
   -add_traits           Add traits or not to the output file. Default is true
