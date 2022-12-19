@@ -4,13 +4,13 @@ Just made this so I can generate CSV and JSON files quickly to use in testing/ma
 
 #### Example:
 ```
-python3 cluster_gen.py -file_type json -id_tyopes email c2 idfa -count 50000 -partners 2
+python3 cluster_gen.py -file_type csv -id_types email c2 -ppid_count 64 -count 50000 -partners 2
 ```
 This will create 
-- 1 parent file with 50k records, all containing EMAILS C2s and IDFAs.
+- 1 parent file with 50k records, all containing EMAILS & C2s where C2 is 64 characters (a hashed emails length)
 - 2 files with varying %s to be used in different match operation tests. Both with a different percentage match rate vs the parent file.
    
-   
+ 
    
 ## Arguments
 ### -file_type (required)
