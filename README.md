@@ -8,8 +8,7 @@ python3 cluster_gen.py -file_type csv -id_types email c2 -ppid_count 64 -count 5
 ```
 This will create 
 - 1 parent file with 50k records, all containing EMAILS & C2s where C2 is 64 characters (a hashed emails length)
-- 2 files with varying %s to be used in different match operation tests. Both with a different percentage match rate vs the parent file.
-   
+- 2 files with varying %s to be used in different match operation tests. Both with a different percentage match rate vs the parent file.   
  
    
 ## Arguments
@@ -26,7 +25,7 @@ Select the ID types to generate, can be email, cid, idfa, gaid, default is email
                         Select the ID types to generate, can be email, cid, idfa, gaid.
 ```
 ### -count
-For CSV it will generate rows with a header, for JSON it will generate individual lines.
+How many records you want to generate.
 ```
   -count COUNT          Sets the number of IDs.
 ```
