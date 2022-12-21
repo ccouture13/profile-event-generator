@@ -6,6 +6,8 @@ import json
 import argparse
 import sys
 import os
+import gzip
+import shutil
 
 # CLI arguments
 parser = argparse.ArgumentParser(description='A cluster/record generator.')
@@ -19,12 +21,14 @@ parser.add_argument("-count", required=True, help="Sets the number of IDs.", typ
 parser.add_argument("-partners", default= 0, help="How many partner match files to create, default is 0", type=int)
 parser.add_argument("-ppid_count", default= 36, help="Choose the PPID 'character length", type=int)
 parser.add_argument("-add_traits", help="Add traits or not to the output file. ", action=argparse.BooleanOptionalAction)
+parser.add_argument("-gzip", help="Gzip this file to test file upload.", action=argparse.BooleanOptionalAction)
 
 args = parser.parse_args()
 
 # Set variables
 id_clusters = []
 
+gzip_file = args.gzip
 add_traits = args.add_traits
 id_types = args.id_types
 outputType = args.file_type
@@ -121,6 +125,11 @@ if outputType == "csv":
       for cluster in id_clusters:
           writer.writerow(cluster)
       csvfile.close
+  
+  if gzip_file:
+    with open('clusters.csv', 'rb') as f_in:
+      with gzip.open('clusters.csv.gz', 'wb') as f_out:
+          shutil.copyfileobj(f_in, f_out)
 
   if numberPartners != 0:
     for i in numberPartners:
@@ -155,6 +164,11 @@ if outputType == "json":
     for item in id_clusters:
         jsonfile.write(json.dumps(item))
         jsonfile.write('\n')
+
+  if gzip_file:
+    with open('clusters.json', 'rb') as f_in:
+      with gzip.open('clusters.json.gz', 'wb') as f_out:
+          shutil.copyfileobj(f_in, f_out)
 
   if numberPartners != 0:
     linestowrite = []

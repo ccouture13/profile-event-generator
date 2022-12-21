@@ -24,7 +24,7 @@ Select the ID types to generate, can be email, cid, idfa, gaid, default is email
   -id_types [{email,idfa,gaid,c0,c1,c2,c3,c4,c5,c6,c7,c8,c9} ...]
                         Select the ID types to generate, can be email, cid, idfa, gaid.
 ```
-### -count
+### -count (required)
 How many records you want to generate.
 ```
   -count COUNT          Sets the number of IDs.
@@ -45,4 +45,9 @@ This enables you to generate PPIDs for testing GAM360 and others.
 Use this commmand to generate random age, gender and colour for each record, default is off.
 ```
   -add_traits           Add traits or not to the output file. Default is true
+```
+### -gzip
+Optional argument to gzip the file.
+```
+  -gzip         Gzip this file to test file upload.
 ```
