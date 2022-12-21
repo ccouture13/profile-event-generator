@@ -49,5 +49,5 @@ Use this commmand to generate random age, gender and colour for each record, def
 ### -gzip
 Optional argument to gzip the file.
 ```
-  -gzip         Gzip this file to test file upload.
+  -gzip                 Gzip this file to test file upload.
 ```
