@@ -26,20 +26,24 @@ class Identity:
         self.add_traits = args.add_traits
         self.gzip = args.gzip
 
+    # Generate hashed emails.
     def _generate_email_hash(self) -> str:
         email_bytes = random.getrandbits(128).to_bytes(16, byteorder="big")
         return hashlib.sha3_256(email_bytes).hexdigest()
 
+    # Generate MAIDs
     def _generate_idfa(self) -> str:
         return str(uuid.uuid4()).upper()
 
     def _generate_gaid(self) -> str:
         return str(uuid.uuid4()).upper()
 
+    # Generate custom IDs.
     def _generate_csv_id_c(self) -> str:
         return ''.join(random.choices('0123456789abcdef', k=self.ppid_count))
 
-    def _create_cluster(self) -> Dict[str, Union[str, List[Dict[str, str]]]]:
+    # Generate the profile(s).
+    def _create_profiles(self) -> Dict[str, Union[str, List[Dict[str, str]]]]:
         identity_cluster = {}
         id_c = self._generate_csv_id_c()
 
@@ -63,15 +67,15 @@ class Identity:
 
         return identity_cluster
 
-    def _create_clusters(self) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
-        return [self._create_cluster() for _ in range(self.count)]
+    def _create_profiless(self) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
+        return [self._create_profiles() for _ in range(self.count)]
 
     def _gzip_file(self, file_name):
         with open(file_name, 'rb') as f_in, gzip.open(f'{file_name}.gz', 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
 
     def write_clusters(self):
-        clusters = self._create_clusters()
+        clusters = self._create_profiless()
         file_name = f"clusters.{self.file_type}"
 
         if self.file_type == "csv":
@@ -91,7 +95,7 @@ class Identity:
                 jsonfile.write('\n')
 
     def write_clusters(self):
-        clusters = self._create_clusters()
+        clusters = self._create_profiless()
         file_name = f"clusters.{self.file_type}"
 
         if self.file_type == "csv":
@@ -102,7 +106,7 @@ class Identity:
         if self.gzip:
             self._gzip_file(file_name)
 
-        # This part for creating partner files is not updated, it's only moved here
+        # This part for creating partner files.
         for _ in range(self.partners):
             with open(file_name, 'r') as input_file:
                 lines = input_file.readlines()
