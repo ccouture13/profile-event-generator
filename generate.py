@@ -5,7 +5,7 @@ import random
 from random import uniform
 import numpy as np
 
-count = 50210
+count = 5021
 
 emails = [f"user{i}@example.com" for i in range(count)]
 
