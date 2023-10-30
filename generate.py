@@ -5,7 +5,7 @@ import random
 from random import uniform
 import numpy as np
 
-count = 10000
+count = 500
 
 first_names = [
     "James", "John", "Robert", "Michael", "William", "David", "Joseph", "Charles", "Thomas", "Daniel",
@@ -37,7 +37,7 @@ last_names = [
 
 
 # Generate random emails
-emails = [f"{random.choice(first_names)}.{random.choice(last_names)}@gmail.com".lower() for _ in range(count)]
+emails = [f"{random.choice(first_names)}.{random.choice(last_names)}{random.randint(1,9999)}@gmail.com".lower() for _ in range(count)]
 
 # Hash emails
 hashed_emails = [hashlib.sha256(email.encode()).hexdigest() for email in emails]
@@ -45,6 +45,10 @@ hashed_emails = [hashlib.sha256(email.encode()).hexdigest() for email in emails]
 # Generate UUIDs and apply coverage
 uuids_a = [str(uuid4()) if random.random() < 0.76 else None for _ in range(count)]
 uuids_g = [str(uuid4()) if random.random() < 0.77 else None for _ in range(count)]
+
+# # Generate UUIDs and apply coverage
+# uuids_a = [str(uuid4()) for _ in range(count)]
+# uuids_g = [str(uuid4()) for _ in range(count)]
 
 # Generate random boolean values and apply coverage
 trait_marketing_consent = [random.random() < 0.94 for _ in range(count)]
