@@ -1,0 +1,51 @@
+id_e,id_a,id_g,trait_marketing_consent,trait_prizm_segment,trait_income,trait_marital_status,trait_education_level,trait_age_range
+ff1e64631839fb2301035c41e3a9f2d6e9161cec8f33c3b843f33f6033810d6b,5ba1110f d233 4213,7233af6b f9ec 4316,True,Ellipsis,> 200K,Widowed,High School Graduate,35-44
+01736a51174c55a70da9bf2444701963a84b758bb40cf1e8d2ab3de5adb4f605,87c64940 1b6d 42e1,9465d434 b081 4f93,True,,,,College Graduate,
+181f96290280d868c353e15f3d595f764f2addfe2ef912b937c535cc0772ff8b,dcf306c5-3a00-4453-96ce-84517e76f8cc,655fdd31-b710-427b-9b50-badc21a9d029,True,Ellipsis,,Widowed,,
+332a75feff5b2e0c2f9bb5d4ba7766e745ca06b73e81f1b651350023020cb3b3,c9891d02-5a8c-4dbe-b61c-bd55b40f5328,4a711eca-ab48-4d79-8030-89784d9b6b6f,False,,75-100K,,,25-34
+33bec16c5602d1298ee96dfd6924c00e4cdd7fa8de73c1681f55db14f348257e,,10728159-463b-4338-9c22-e4b99cc52f81,True,,75-100K,,College Graduate,
+a1d009a1013faee9a4c66dc45260bd689a27aea5f2fce371cce391dedb83b7b5,5bb02429-de03-45b8-8d24-abf1838c774e,e20b72e5-847c-4cd2-90a2-c26743ec6ec3,True,Booming with Confidence,,Separated,High School Graduate,55-64
+938266da9b10d50dabae91e6ac1ae592faeaedb23d8bab3a42d50d2de288572c,c9ad57d9 871e 4cf3,eab96614 d6f0 49a0,True,,75-100K,Domestic Partnership,,
+a3ba6dddad5dadbc6e49e7d2ef23ea5a180bdfec61e4f8d45c6a269486a6afbc,4d7136db 07fa 4084,0e2456f8 fd35 4f63,False,Booming with Confidence,75-100K,,College Graduate,25-34
+a7218c473dff6f0a8bc7d3198ed6d763b26d79ca77f5ccae567758fa116d4ef6,5c01f62b-4a7e-44c9-956a-4d11f72b1c20,,True,,25-50K,Widowed,,65+
+c4a39f0ed436c50b219039f94a89abb21377b48892a3c83530aa0633f73b465b,c74ed4dc-1733-4f43-83c9-1eb41826a82f,3acea280-b8ff-4867-95de-1def0394e25a,True,Cosmopolitan Elite,> 200K,Domestic Partnership,,25-34
+3649da3b4deb38f86fada6280c231cac39d93105a379d9380f9312d8dd1313f6,a4eaaf50 c6c4 42ea,674d53fe 5dfd 4c65,True,,> 200K,Widowed,,35-44
+e0e8e9e582d682cbe94a7e3ae24d2972a04885a425b32e78094e685b7b323d67,b6bd1bf9-6faf-4f82-bbe2-63a952b6e623,ca64acd8-bf58-4680-a4f6-7a2f81b0f8b8,True,,75-100K,,High School Graduate,
+70a802bdbd648874da4fa9ddb6ce5c26824bcb12afa5b237e055dd2c2df7bac2,105cb6fe-f4a5-41dc-aac3-d82653495790,aec1528a-d7f5-4c4e-bc7a-0b61dd06747d,True,Cosmopolitan Elite,> 200K,,Some College,25-34
+5a401cfa8067350555185a78c508442eb6e98705f1980d661e29a6394e129075,9f345086-011b-4553-a459-ab67450167a4,0ea75a18-e792-48fb-aa07-b5f0dd4e54b0,True,Booming with Confidence,,Domestic Partnership,High School Graduate,
+1a0639bde347fc766adb8d67188c331eb829b005492495b38f3dd1990598862c,725d8d9d-e7cd-4c8d-b23c-888fcc75dbfb,8b80553a-9f25-4c01-adf6-d299f42bace5,True,Suburban Style,,Domestic Partnership,High School Graduate,35-44
+a4aadcc3a1ea407d583982a01445f00842c76a4f20452e17b189e4c8f2691760,7a62bc93 f75c 40c9,49302832 13a3 43cb,False,Booming with Confidence,75-100K,Widowed,High School Graduate,35-44
+c5a236dc0e7cbf7f964c9d73955d97991fe990b5a96932da7a4a98026da18ff9,de00e708 8a99 4313,825ba7c9 5129 4dad,True,,25-50K,Separated,Post-Graduate,35-44
+6a4d49fa835c812838c4bbe470c908fe0581676836132ddf99ef2f8fb9b5f75e,52cc3c31 7009 48f5,25cd56b6 168e 4705,True,Cosmopolitan Elite,> 200K,,,55-64
+c650bf1db71ec320936a8ed7dd5d7b6808dbfd8ecffc585012e0da3f469dd7f3,,052ae400-de35-4dd4-86d5-e87cb29bc864,True,Suburban Style,75-100K,,,18-24
+2d0a22f9e50e9ac88f61512f18bb0ed02c5b3401553886f0f9cea2b8cf4699a1,f303ed3c-357a-4bd9-8a1b-32c72cee6692,,True,Booming with Confidence,> 200K,,College Graduate,25-34
+51d7d9934b9542603001ad00c09ab32696c368b2997f75b4a519c9f463082530,db91a8e1-9fd7-4039-8fd4-66ca458c211e,e354a3d1-39d4-4331-8ebc-bfe423c67d94,True,Ellipsis,75-100K,Domestic Partnership,Some College,65+
+5e872ad5bdb41cdb44eb4a64f3e590c62b3f72db7a01217cb40ff0fb4f7857a8,d14f2be0 d12e 4f83,b7e31e3a 5c5c 4fbf,True,Booming with Confidence,75-100K,Separated,,
+d5b7dff8f6a29a8e88f356c45325bf630e9955a8caa5c452154457c247bc977a,f4d868a7 9564 4ad1,7c34c65e 0d9a 4326,True,Booming with Confidence,> 200K,Separated,High School Graduate,25-34
+c5bc9ba088e6f247803025772227fe02c74e05047f3eb4adf8abbf7afed4ee04,1967facc 173c 48ec,fc6f9732 4021 4356,True,Ellipsis,,Separated,College Graduate,
+91cce43dc8d195f2410706d4f36e42eec14b81cc76a31484394e68fa084d9b95,c6ed7762 64f6 4eeb,c8a9cd72 5389 47e2,True,Booming with Confidence,,Domestic Partnership,,35-44
+d9b6e5a3c4ff894bdb678d1562d489905eda7e939ca524fd1db084f49695cef7,16172100-bf6d-4969-bc79-760c217c75d8,9cdfc7b4-4c6e-4518-8849-0c3081bd57be,True,,< 25K,Separated,College Graduate,18-24
+4b6bbeaffc32ce416ce677de2f656266aea27e687e879e3e94b4b3a13cd9251b,27b763e4 604d 476d,8693c9f3 89a2 42fe,True,Ellipsis,,,Post-Graduate,
+567913127b65c9396f1b67b0e9b6cd931de5e1c491aa351d745b06ddd33a4b82,305aeec5 5b3d 4dd0,ebca347a 17de 4bd7,True,Suburban Style,75-100K,,,
+75f98cab3433453d557cdb330e4541eaf33b52863540f69343efcca2d09c7f97,dd4e5982-78e7-4ca9-b437-98d5e9acf40e,5f1e94ea-5c71-4521-8cb0-fcd177315d93,False,Ellipsis,,,High School Graduate,
+ddb501fd393b1d70f1ed99cab2fccd79ffd212277c05bcf2d0c6032094b614fa,28ce202d-cb00-4e44-ac7e-2b02adf2ca06,1c604699-d7a3-4b85-a856-03e979ad608f,True,Ellipsis,75-100K,,,65+
+3510919a486ee6e47c1ca51e63f82e33a5aa1a257e3d03b3e5a87b7416c2db2d,7ac0e0b0 4102 4030,54aebf84 67a1 4bf8,True,,,,,
+3510919a486ee6e47c1ca51e63f82e33a5aa1a257e3d03b3e5a87b7416c2db2d,daaaefc6 1fab 4179,b9082c94 c867 4ffe,True,Booming with Confidence,75-100K,Domestic Partnership,,45-54
+c605ee455da887500c293d42f9998c8ae89f6834fcd6e65c0d68dda9153f5937,30ae4f1d 06b0 4715,ad9410a2 6657 4ffb,True,Booming with Confidence,< 25K,Separated,,
+520b6cdf4142ff646444d72ecf465237aab4ca0f7d8c054fb2ff31af2699f9f5,92737bf3-8f89-424a-b0b0-3df2ec00b354,6c042fa1-3c45-4ac0-9816-c72c03d63d32,True,,> 200K,,College Graduate,65+
+e9b458ded5dc9a806641c023f0d5f5cdf869f6a745c740f643efafc25994284c,4dd4e1b1-086d-41f6-8311-31a995c80e46,3ad61558-b901-45fa-b975-2bc198aca77d,True,Booming with Confidence,,Separated,College Graduate,65+
+ac1bb0b6090a8b29c998897d82a1254b04ad5ab085e5e4ee736672e4f6ee2cc8,,3a3f8089-2ffe-4dc9-b588-681dd751ca88,True,Booming with Confidence,,,,55-64
+9f5b0bee05f2995f975977ce42d7d4269b864ed3429c0d6c0e12933a7bed87c8,72a2a1e8-f156-4ff7-9c9a-bd6b40257eb9,ca6821d1-ae77-4141-8a2b-83cd3c6850ba,True,,75-100K,,,65+
+ffbbfc99044ce45bdc14ad35bf783a5e21dcdf9fd22426048eaf32d13d28d29d,d83d0e34-219e-4ada-878e-a1681e49dcf5,0edfe783-1fd5-4af2-a0e3-8c55ec4f1485,True,Booming with Confidence,75-100K,,High School Graduate,25-34
+9a204fa645617a111be4a931656769c347f1b6a6729e6fd24137a13f32bcb072,74bf8828-faeb-4efb-9376-21a1c397aead,e753f8f9-142a-4f4f-8eb7-f9b47e860bf4,True,Booming with Confidence,75-100K,,,55-64
+3f6589932fbcefb7c061fc70fa65b9d9c8b878eefa27a067ac937abf3d74d2f6,f2a26c17 c952 4155,10447800 2274 4581,True,Suburban Style,,,High School Graduate,65+
+f4b7fbff96d270723264d55db574ac1e684937ebe3efc1c090652314334da902,,,True,Ellipsis,> 200K,Divorced,High School Graduate,65+
+7d69020d6e680651a4421786c8dcd548994aa1e65d4917fadffdbf3aea632d82,9a03060a-0e19-4c5b-8eb6-cad75d41527e,,True,Cosmopolitan Elite,75-100K,Domestic Partnership,High School Graduate,
+bad828992dfcd95c8e94e98a42799d69b262b178f8b8e967ad3b7b075773e146,57a9373e-a4e8-4a2b-8fae-79af8692a197,f31c0a9e-6feb-4251-82b4-6dc85496ebfd,True,Suburban Style,,Separated,,55-64
+3668aa0b5a1a432fbbae25cda47438e138065f759134d0495c2b5f9fa49b8588,560a3861-7d3a-45bc-aea0-90d39f0d2529,2974d994-cde1-4070-aa7b-043863785fb3,True,,,,College Graduate,35-44
+34d4423503f5c77de4da8fa3da32dbaf5e7c1ef2430f9540d46909963f863e14,bddd6f12-0d55-4175-8a8c-ac3f26989198,,True,Cosmopolitan Elite,,Domestic Partnership,Some College,
+a242a094e200fc8c4a67408f983308b9aed16b3584d16cb88ab365e67e59067f,,1328c23d-67c0-4545-95df-1a4eb7fcc0ed,True,Booming with Confidence,,Domestic Partnership,High School Graduate,
+07d5733252970318bedfb07da9c7a7b38825b1bc45b64f6f2c2661329cdea6c3,89070cd9 6fc1 48f2,efdb2f4b 322b 4076,True,,,Separated,College Graduate,35-44
+f300946ea4dc7c16b7f73fc23ec258bd61b08ea015e81cebe589161ffdfddcd8,98ee1932-dfc8-4090-bc9a-852d181fc488,fab93586-8b77-4ebf-bbfe-3c8a33864d65,True,Booming with Confidence,,,,55-64
+5616a0a91d28a6d2e49c3ef03cbed3afb1760deded4634947ee4244f79ee57c5,e060ee59 a08d 4dce,a85a6749 95a2 4592,True,,,,Some College,
+27ffa7f4fa8d359de5d56a6705a8d5adefe681fd7b97435c3dea45bfe627a747,8f2f44c8 71e5 4c06,354d3f5e c2c3 45d2,True,Cosmopolitan Elite,75-100K,,Post-Graduate,55-64
