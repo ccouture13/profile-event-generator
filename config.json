@@ -1,0 +1,5 @@
+{
+    "COUNT": 5000,
+    "MAX_INVALID_PERCENTAGE": 0.05, 
+    "MAX_EMPTY_PERCENTAGE": 0.2
+}

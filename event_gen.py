@@ -1,8 +1,15 @@
+import os
 import pandas as pd
 import hashlib
 import random
 from datetime import datetime, timedelta, timezone
+import json
 import numpy as np
+
+# Load configuration
+config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+with open(config_path, 'r') as config_file:
+    config = json.load(config_file)
 
 #Constants
 FIRST_NAMES = [
@@ -40,9 +47,9 @@ PROPERTIES = {
 }
 
 #Counts & invalidity percentages.
-COUNT = 5000
-MAX_INVALID_PERCENTAGE = 0.04
-MAX_EMPTY_PERCENTAGE = 0.25
+COUNT = config["COUNT"]
+MAX_INVALID_PERCENTAGE = config["MAX_INVALID_PERCENTAGE"]
+MAX_EMPTY_PERCENTAGE = config["MAX_EMPTY_PERCENTAGE"]
 
 # Utility Functions
 def generate_random_value(choices, include_empty=False, max_empty_percentage=MAX_EMPTY_PERCENTAGE):
@@ -84,5 +91,17 @@ def generate_data(count=COUNT, max_invalid_percentage=MAX_INVALID_PERCENTAGE, ma
 columns = ["id_e", "event_type", "event_timestamp", "prop_source", "prop_medium", "prop_article_content", "prop_interaction_type"]
 df = pd.DataFrame(generate_data(), columns=columns)
 
-# Save to CSV
-df.to_csv('events.csv', index=False)
+# Define the subdirectory and filename
+subdirectory = 'Outputs/Event Files'
+current_datetime = datetime.now().strftime('%Y-%m-%d_%H%M')
+count_in_k = f"{COUNT//1000}K" if COUNT >= 1000 else f"{COUNT}"
+filename = f"{count_in_k}_events_{current_datetime}.csv"
+filepath = os.path.join(subdirectory, filename)
+
+# Ensure the subdirectory exists
+os.makedirs(subdirectory, exist_ok=True)
+
+# Save the DataFrame to CSV
+df.to_csv(filepath, index=False)
+
+print(f"File saved to: {filepath}")
