@@ -5,20 +5,8 @@ import random
 from random import uniform
 import numpy as np
 
-def generate_invalid_email():
-    """Generates a random invalid email string."""
-    invalid_elements = [" broken", "🚀", "@invalid", " no_at_symbol", "123"]
-    return random.choice(first_names) + random.choice(invalid_elements)
-
-def generate_invalid_uuid():
-    """Generates a random invalid UUID string."""
-    return " ".join(str(uuid4()).split("-")[:3])  # Breaking the UUID format
-
-count = 50
-add_invalid = True  # Flag to add invalid data
-max_invalid_percentage = 0.9  # Maximum percentage of invalid data
-
-first_names = [
+#Constants
+FIRST_NAMES = [
     "James", "John", "Robert", "Michael", "William", "David", "Joseph", "Charles", "Thomas", "Daniel",
     "Matthew", "Anthony", "Donald", "Steven", "Paul", "Andrew", "Mark", "George", "Kenneth", "Joshua",
     "Edward", "Brian", "Kevin", "Ronald", "Timothy", "Jason", "Jeffrey", "Frank", "Gary", "Stephen",
@@ -31,8 +19,7 @@ first_names = [
     "Lloyd", "Walter", "Leonard", "Fernando", "Lester", "Bobby", "Darrell", "Billy", "Bradley", "Gary",
     "Roger", "Kyle", "Theodore", "Tommy", "Larry", "Javier"
 ]
-
-last_names = [
+LAST_NAMES = [
     "Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson",
     "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White",
     "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Young", "Walker", "Hall", "Allen",
@@ -45,51 +32,65 @@ last_names = [
     "Ortiz", "Jenkins", "Gutierrez", "Perry", "Butler", "Barnes", "Fisher", "Henderson", "Coleman", "Simmons",
     "Patterson", "Jordan", "Reynolds", "Hamilton", "Graham", "Kim"
 ]
+PRIZM_SEGMENTS = [
+    "Cosmopolitan Elite", "Booming with Confidence", "Suburban Style",
+    "Metro Renters", "Landed Gentry", "Country Squires",
+    "Soccer Moms", "Urban Achievers", "Rural Bucolia",
+    "Blue Blood Estates", "Families in Motion", "Greenbelt Sports",
+    "New Homesteaders", "Old Milltowns", "Rural Resort Dwellers",
+    "Salt of the Earth", "Middleburg Managers", "Hometown Retired",
+    "New Empty Nests", "Scholars and Patriots"
+]
+INCOME_RANGES = ["< 25K", "25-50K", "50-75K", "75-100K", "100-150K", "150-200K", "> 200K"]
+MARITAL_STATUSES = ["Single", "Married", "Divorced", "Widowed", "Separated", "Domestic Partnership"]
+EDUCATION_LEVELS = ["No High School", "High School Graduate", "Some College", "College Graduate", "Post-Graduate"]
+AGE_RANGES = ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]
 
-emails = []
-hashed_emails = []
-uuids_a = []
-uuids_g = []
+#Counts & invalidity percentages.
+COUNT = 5000
+MAX_INVALID_PERCENTAGE = 0.07  # Adjust as needed
+MAX_EMPTY_PERCENTAGE = 0.2  # Applies to all other data
 
-for _ in range(count):
-    if add_invalid and random.random() < (max_invalid_percentage * random.random()):
-        email = generate_invalid_email()
-        uuid_a = generate_invalid_uuid()
-        uuid_g = generate_invalid_uuid()
-    else:
-        email = f"{random.choice(first_names)}.{random.choice(last_names)}{random.randint(1,9999)}@gmail.com".lower()
-        uuid_a = str(uuid4()) if random.random() < 0.76 else None
-        uuid_g = str(uuid4()) if random.random() < 0.77 else None
+# Utility Functions
+def generate_random_value(choices, include_empty=False, max_empty_percentage=MAX_EMPTY_PERCENTAGE):
+    """Generates a random value from the choices or returns an empty value."""
+    if include_empty and random.random() < max_empty_percentage:
+        return None  # Use None for pandas to handle as NaN
+    return random.choice(choices)
 
-    emails.append(email)
-    hashed_emails.append(hashlib.sha256(email.encode()).hexdigest())
-    uuids_a.append(uuid_a)
-    uuids_g.append(uuid_g)
+def generate_invalid_uuid():
+    """Generates a random invalid UUID string."""
+    return " ".join(str(uuid4()).split("-")[:3])  # Breaking the UUID format
 
-trait_marketing_consent = [random.random() < 0.94 for _ in range(count)]
+def generate_profile_data(count=COUNT, max_invalid_percentage=MAX_INVALID_PERCENTAGE, max_empty_percentage=MAX_EMPTY_PERCENTAGE):
+    data = []
+    for _ in range(count):
+        is_invalid_email = random.random() < max_invalid_percentage
+        
+        #Generate HEMs with random empties.
+        email = "" if is_invalid_email else f"{random.choice(FIRST_NAMES)}.{random.choice(LAST_NAMES)}{random.randint(1,9999)}@gmail.com".lower()
+        hashed_email = hashlib.sha256(email.encode()).hexdigest() if email else ""
+        
+        #Generate UUIDs with random empties.
+        uuid_a = None if random.random() < MAX_EMPTY_PERCENTAGE else str(uuid4())
+        uuid_g = None if random.random() < MAX_EMPTY_PERCENTAGE else str(uuid4())
+        
+        # Apply MAX_EMPTY_PERCENTAGE to all other attributes
+        trait_marketing_consent = random.random() < 0.94  # Assuming consent is a boolean, not applying empty concept here
+        trait_prizm_segment = generate_random_value(PRIZM_SEGMENTS, include_empty=True, max_empty_percentage=max_empty_percentage)
+        trait_income = generate_random_value(INCOME_RANGES, include_empty=True, max_empty_percentage=max_empty_percentage)
+        trait_marital_status = generate_random_value(MARITAL_STATUSES, include_empty=True, max_empty_percentage=max_empty_percentage)
+        trait_education_level = generate_random_value(EDUCATION_LEVELS, include_empty=True, max_empty_percentage=max_empty_percentage)
+        trait_age_range = generate_random_value(AGE_RANGES, include_empty=True, max_empty_percentage=max_empty_percentage)
+        
+        row = [hashed_email, uuid_a, uuid_g, trait_marketing_consent, trait_prizm_segment, trait_income, trait_marital_status, trait_education_level, trait_age_range]
+        data.append(row)
+    
+    return data
 
-prizm_segments = ['Cosmopolitan Elite', 'Booming with Confidence', 'Suburban Style', ...]  # Add the rest of the PRIZMa segments
+# Generate and prepare data for DataFrame
+columns = ["id_e", "id_a", "id_g", "trait_marketing_consent", "trait_prizm_segment", "trait_income", "trait_marital_status", "trait_education_level", "trait_age_range"]
+df = pd.DataFrame(generate_profile_data(), columns=columns)
 
-prizm_segment_probs = np.random.dirichlet(np.ones(len(prizm_segments)), size=1)[0]
-trait_prizm_segment = [np.random.choice(prizm_segments, p=prizm_segment_probs) if random.random() < uniform(0.35, 0.97) else None for _ in range(count)]
-
-income_ranges = ["< 25K", "25-50K", "50-75K", "75-100K", "100-150K", "150-200K", "> 200K"]
-income_probs = np.random.dirichlet(np.ones(len(income_ranges)), size=1)[0]
-trait_income = [np.random.choice(income_ranges, p=income_probs) if random.random() < uniform(0.35, 0.97) else None for _ in range(count)]
-
-marital_statuses = ["Single", "Married", "Divorced", "Widowed", "Separated", "Domestic Partnership"]
-marital_status_probs = np.random.dirichlet(np.ones(len(marital_statuses)), size=1)[0]
-trait_marital_status = [np.random.choice(marital_statuses, p=marital_status_probs) if random.random() < uniform(0.35, 0.97) else None for _ in range(count)]
-
-education_levels = ["No High School", "High School Graduate", "Some College", "College Graduate", "Post-Graduate"]
-education_level_probs = np.random.dirichlet(np.ones(len(education_levels)), size=1)[0]
-trait_education_level = [np.random.choice(education_levels, p=education_level_probs) if random.random() < uniform(0.35, 0.97) else None for _ in range(count)]
-
-age_ranges = ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]
-age_range_probs = np.random.dirichlet(np.ones(len(age_ranges)), size=1)[0]
-trait_age_range = [np.random.choice(age_ranges, p=age_range_probs) if random.random() < uniform(0.35, 0.97) else None for _ in range(count)]
-
-data = zip(hashed_emails, uuids_a, uuids_g, trait_marketing_consent, trait_prizm_segment, trait_income, trait_marital_status, trait_education_level, trait_age_range)
-df = pd.DataFrame(data, columns=["id_e", "id_a", "id_g", "trait_marketing_consent", "trait_prizm_segment", "trait_income", "trait_marital_status", "trait_education_level", "trait_age_range"])
-
+# Save to CSV
 df.to_csv('profiles.csv', index=False)
