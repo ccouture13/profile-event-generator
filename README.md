@@ -7,3 +7,5 @@ This record generator generates CSVs of type PROFILE and of type EVENT for testi
 ```
 python3 profile_gen.py
 ```
+
+Both of the included CSVs contain FAKE data.
