@@ -1,2 +1,5 @@
-
 .DS_Store
+
+# Ignore all files in these specific directories
+Generated Outputs/Event Files/*
+Generated Outputs/Profile Files/*

@@ -1,9 +1,17 @@
+import os
 import pandas as pd
 from uuid import uuid4
 import hashlib
 import random
 from random import uniform
+from datetime import datetime, timedelta, timezone
+import json
 import numpy as np
+
+# Load configuration
+config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+with open(config_path, 'r') as config_file:
+    config = json.load(config_file)
 
 #Constants
 FIRST_NAMES = [
@@ -47,9 +55,9 @@ EDUCATION_LEVELS = ["No High School", "High School Graduate", "Some College", "C
 AGE_RANGES = ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]
 
 #Counts & invalidity percentages.
-COUNT = 5000
-MAX_INVALID_PERCENTAGE = 0.07  # Adjust as needed
-MAX_EMPTY_PERCENTAGE = 0.2  # Applies to all other data
+COUNT = config["COUNT"]
+MAX_INVALID_PERCENTAGE = config["MAX_INVALID_PERCENTAGE"]
+MAX_EMPTY_PERCENTAGE = config["MAX_EMPTY_PERCENTAGE"]
 
 # Utility Functions
 def generate_random_value(choices, include_empty=False, max_empty_percentage=MAX_EMPTY_PERCENTAGE):
@@ -92,5 +100,17 @@ def generate_profile_data(count=COUNT, max_invalid_percentage=MAX_INVALID_PERCEN
 columns = ["id_e", "id_a", "id_g", "trait_marketing_consent", "trait_prizm_segment", "trait_income", "trait_marital_status", "trait_education_level", "trait_age_range"]
 df = pd.DataFrame(generate_profile_data(), columns=columns)
 
-# Save to CSV
-df.to_csv('profiles.csv', index=False)
+# Define the subdirectory and filename
+subdirectory = 'Outputs/Profile Files'
+current_datetime = datetime.now().strftime('%Y-%m-%d_%H%M')
+count_in_k = f"{COUNT//1000}K" if COUNT >= 1000 else f"{COUNT}"
+filename = f"{count_in_k}_profiles_{current_datetime}.csv"
+filepath = os.path.join(subdirectory, filename)
+
+# Ensure the subdirectory exists
+os.makedirs(subdirectory, exist_ok=True)
+
+# Save the DataFrame to CSV
+df.to_csv(filepath, index=False)
+
+print(f"File saved to: {filepath}")
