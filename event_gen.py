@@ -38,12 +38,13 @@ LAST_NAMES = [
     "Ortiz", "Jenkins", "Gutierrez", "Perry", "Butler", "Barnes", "Fisher", "Henderson", "Coleman", "Simmons",
     "Patterson", "Jordan", "Reynolds", "Hamilton", "Graham", "Kim"
 ]
-EVENT_TYPES = ['page_view', 'click', 'form_submit', 'video_play', 'social_share']
+EVENT_TYPES = ['page_view', 'click', 'form_submit', 'video_play', 'social_share', 'ad_impression']
 PROPERTIES = {
     'source': ['search_engine', 'social_media', 'email_campaign', 'direct'],
     'medium': ['organic', 'cpc', 'email', 'referral'],
     'article_content': ['news', 'tutorial', 'review', 'opinion'],
-    'interaction_type': ['read', 'like', 'comment', 'share']
+    'interaction_type': ['read', 'like', 'comment', 'share'],
+    'ad_format' : ['display', 'video', 'native']
 }
 
 #Counts & invalidity percentages.
@@ -82,13 +83,13 @@ def generate_data(count=COUNT, max_invalid_percentage=MAX_INVALID_PERCENTAGE, ma
             hashed_email,
             event_type,
             event_timestamp,
-            *[generate_random_value(PROPERTIES[prop], include_empty=True, max_empty_percentage=max_empty_percentage) for prop in ['source', 'medium', 'article_content', 'interaction_type']]
+            *[generate_random_value(PROPERTIES[prop], include_empty=True, max_empty_percentage=max_empty_percentage) for prop in ['source', 'medium', 'article_content', 'interaction_type','ad_format']]
         ]
         data.append(row)
     return data
 
 # Generate and prepare data for DataFrame
-columns = ["id_e", "event_type", "event_timestamp", "prop_source", "prop_medium", "prop_article_content", "prop_interaction_type"]
+columns = ["id_e", "event_type", "event_timestamp", "prop_source", "prop_medium", "prop_article_content", "prop_interaction_type", 'prop_ad_format']
 df = pd.DataFrame(generate_data(), columns=columns)
 
 # Define the subdirectory and filename
