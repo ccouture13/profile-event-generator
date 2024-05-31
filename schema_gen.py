@@ -34,8 +34,7 @@ def generate_cli_commands_from_csv(file_path):
         ]
         schema_json = json.dumps(schema)
         # Sanitize the event_type to use as the event_schema_id
-        event_schema_id = sanitize_event_type(event_type)
-        cli_command = f'./optable-cli --timeout=10s event-schema create {event_schema_id} "{event_type}" "{event_type}" \'{schema_json}\''
+        cli_command = f'./optable-cli --timeout=10s event-schema create "{event_type}" "{event_type}" \'{schema_json}\''
         commands.append(cli_command)
 
     # Write the commands to a file
